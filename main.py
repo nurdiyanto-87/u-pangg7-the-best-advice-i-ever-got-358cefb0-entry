@@ -20,9 +20,16 @@ def main() -> None:
     # whitespace, in a single sentence. Fail loudly here rather than
     # ship an entry the gate would refuse.
     assert 1 <= len(ADVICE) <= 200, "advice must be 1-200 characters"
+    # Exactly one sentence: a single terminal period and no other
+    # sentence-ending punctuation anywhere in the line.
     assert ADVICE.count(".") == 1 and ADVICE.endswith("."), (
         "advice must be exactly one sentence"
     )
+    assert "?" not in ADVICE and "!" not in ADVICE, (
+        "advice must be exactly one sentence"
+    )
+    # The line must quote what was actually said, not paraphrase a slogan.
+    assert "'" in ADVICE, "advice must quote what was actually said"
     assert "\n" not in ADVICE, "advice must be a single line"
     assert ADVICE.strip(), "advice must not be only whitespace"
     os.makedirs("/output", exist_ok=True)
